@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Listings</title>
+    <style>
+        /* ... (Copy styles from landing page and add/modify as needed) ... */
+        .listings-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .listing-bubble {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Agent Listings</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
+        <main>
+            <div class="content">
+                <h2>Your Listings</h2>
+                <div id="listings" class="listings-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        // ... (Add Google Sheets API code here) ...
+
+        function logout() {
+            sessionStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        function checkLoginStatus() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function loadListings() {
+            // Placeholder for Google Sheets API call
+            const listings = [
+                { address: "123 Main St", id: "1" },
+                { address: "456 Elm St", id: "2" },
+                // ... more listings ...
+            ];
+
+            const listingsContainer = document.getElementById('listings');
+            listings.forEach(listing => {
+                const bubble = document.createElement('a');
+                bubble.href = `listing-details.html?id=${listing.id}`;
+                bubble.className = 'listing-bubble';
+                bubble.innerHTML = `<span>${listing.address}</span>`;
+                listingsContainer.appendChild(bubble);
+            });
+        }
+
+        checkLoginStatus();
+        loadListings();
+    </script>
+</body>
+</html>
