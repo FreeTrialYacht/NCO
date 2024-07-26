@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Our Site</title>
+    <title>Welcome - Listings</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,33 +40,60 @@
         .logout-btn:hover {
             background-color: #cc0000;
         }
+        .listing-bubble {
+            width: 200px;
+            height: 200px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .listing-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            position: absolute;
+        }
+        .listing-bubble span {
+            z-index: 1;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Our Site</h1>
+        <h1>Welcome to Our Listings</h1>
         <button class="logout-btn" onclick="logout()">Logout</button>
     </header>
     <main>
         <h2>You've successfully logged in!</h2>
-        <p>This is your personalized landing page. You can add more content here as needed.</p>
+        <p>This is your personalized landing page. You can view our listings below.</p>
+        <div class="listing-bubble">
+            <img src="https://via.placeholder.com/200" alt="Home">
+            <span>Listings</span>
+        </div>
     </main>
 
     <script>
         function logout() {
-            // In a real application, you'd clear the session here
+            sessionStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         }
 
-        // Check if the user is logged in
         function checkLoginStatus() {
-            // This is a simple check. In a real application, you'd verify a session token
             if (!sessionStorage.getItem('isLoggedIn')) {
                 window.location.href = 'index.html';
             }
         }
 
-        // Run the check when the page loads
         checkLoginStatus();
     </script>
 </body>
