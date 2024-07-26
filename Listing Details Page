@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Details</title>
+    <style>
+        /* ... (Copy styles from landing page and add/modify as needed) ... */
+        .commission-bubble {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Listing Details</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
+        <main>
+            <div class="content">
+                <h2 id="address"></h2>
+                <p>Commission: <span id="commission-bubble" class="commission-bubble" onclick="this.classList.add('hidden')">Click to view</span></p>
+                <p id="commission" class="hidden"></p>
+                <p>Notes: <span id="notes"></span></p>
+                <button onclick="generatePublicLink()">Generate Public Link</button>
+                <p id="publicLink"></p>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        // ... (Add Google Sheets API code here) ...
+
+        function logout() {
+            sessionStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        function checkLoginStatus() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function loadListingDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            // Placeholder for Google Sheets API call
+            const listing = {
+                address: "123 Main St",
+                commission: "$5,000",
+                notes: "Great property in a prime location."
+            };
+
+            document.getElementById('address').textContent = listing.address;
+            document.getElementById('commission').textContent = listing.commission;
+            document.getElementById('notes').textContent = listing.notes;
+        }
+
+        function generatePublicLink() {
+            const currentUrl = window.location.href;
+            const publicUrl = currentUrl.replace('listing-details.html', 'public-listing.html');
+            document.getElementById('publicLink').textContent = publicUrl;
+        }
+
+        checkLoginStatus();
+        loadListingDetails();
+    </script>
+</body>
+</html>
