@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Listing</title>
+    <style>
+        /* ... (Copy styles from landing page and add/modify as needed) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Property Listing</h1>
+        </header>
+        <main>
+            <div class="content">
+                <h2 id="address"></h2>
+                <p>Notes: <span id="notes"></span></p>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        // ... (Add Google Sheets API code here) ...
+
+        function loadPublicListingDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            // Placeholder for Google Sheets API call
+            const listing = {
+                address: "123 Main St",
+                notes: "Great property in a prime location."
+            };
+
+            document.getElementById('address').textContent = listing.address;
+            document.getElementById('notes').textContent = listing.notes;
+        }
+
+        loadPublicListingDetails();
+    </script>
+</body>
+</html>
