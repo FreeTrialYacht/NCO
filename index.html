@@ -3,77 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Login - Your Company Name</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            height: 100%;
         }
+
         .login-container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
-            color: #333;
         }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
         form {
             display: flex;
             flex-direction: column;
         }
-        input {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
         }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background-color: transparent;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #999;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: -20px;
+            left: 0;
+            font-size: 12px;
+            color: #667eea;
+        }
+
         button {
-            background-color: #0077ff;
+            background-color: #667eea;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
+
         button:hover {
-            background-color: #0066cc;
+            background-color: #764ba2;
         }
+
         .error-message {
-            color: red;
+            color: #ff4444;
             margin-top: 10px;
-            text-align: center;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <form id="loginForm">
-            <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Log In</button>
-        </form>
-        <p id="errorMessage" class="error-message"></p>
+    <div class="container">
+        <div class="login-container">
+            <h1>Welcome Back</h1>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="tel" id="phoneNumber" required placeholder=" ">
+                    <label for="phoneNumber">Phone Number</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required placeholder=" ">
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+            <p id="errorMessage" class="error-message"></p>
+        </div>
     </div>
 
     <script>
-        // This is where you'll add the valid phone number and password
         const validCredentials = {
             phoneNumber: "1234567890",
             password: "securepassword123"
         };
 
-        // Function to handle login
-        function handleLogin(event) {
-            event.preventDefault();
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
             const phoneNumber = document.getElementById('phoneNumber').value;
             const password = document.getElementById('password').value;
@@ -81,31 +134,17 @@
 
             if (phoneNumber === validCredentials.phoneNumber && password === validCredentials.password) {
                 errorMessage.textContent = "";
-                // Successful login - redirect to the next page
-                // Replace 'NEXT_PAGE_URL' with the actual URL of your next page
-                window.location.href = 'NEXT_PAGE_URL';
+                sessionStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'landing.html';
             } else {
                 errorMessage.textContent = "Phone number or password not recognized, contact your broker.";
             }
+        });
+
+        // Check if user is already logged in
+        if (sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'landing.html';
         }
-
-        // Add event listener to the form
-        document.getElementById('loginForm').addEventListener('submit', handleLogin);
-
-        // Function to check login status and redirect if not logged in
-        function checkLoginStatus() {
-            // You'll need to implement a way to check if the user is logged in
-            // This is a placeholder implementation
-            const isLoggedIn = false; // Replace with actual login check
-
-            if (!isLoggedIn && window.location.pathname !== '/') {
-                // If not logged in and not on the login page, redirect to login page
-                window.location.href = '/';
-            }
-        }
-
-        // Check login status when the page loads
-        window.addEventListener('load', checkLoginStatus);
     </script>
 </body>
 </html>
